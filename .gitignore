@@ -1,0 +1,6 @@
+*.html
+*.png
+/__pycache__
+/.mypy_cache
+/ipynb/.ipynb_checkpoints
+/ipynb
