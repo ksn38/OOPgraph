@@ -11,7 +11,7 @@ import copy
 # lib_path = 'E:\\Temp\\ms5\\'
 # lib_path = 'C:\\Users\\ksn\\stable-diffusion-webui\\'
 # lib_path = 'D:\\Temp\\M\\ms5\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\'
-lib_path = 'C:\\Users\\ksn\\frameworks\\ms7\\'
+lib_path = 'C:\\Users\\ksn\\frameworks\\ms5\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\'
 
 size_image = 50
 min_subclasses = 0
@@ -29,8 +29,9 @@ list_classes_for_html = []
 list_files_sizes = []
 dict_classes_sizes = dict()
 list_classes_for_html.append('<!DOCTYPE html><html><head><meta charset="utf-8"><title></title>\
-<style>body{background-color: #1b232a;}div{color: #d2d2d2;}a{color: #55e1e6;}span{color: #efefef;}\
-</style></head><span><i>The numbers are amount of subclasses and size of file</i></span><br><br>')
+<style>body{background-color: #13191e}div{color: #d2d2d2; font-family: Trebuchet MS; font-size: 15px}\
+a{color: #55e1e6; font-family: Trebuchet MS; font-size: 15px}span{color: #efefef}</style></head>\
+<span><i>The numbers are amount of subclasses and size of file</i></span><br><br>')
 
 #open file and get names classes with regex
 def open_and_re(path, list_classes, list_classes_for_graph, list_classes_for_html):
