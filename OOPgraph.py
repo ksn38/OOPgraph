@@ -11,7 +11,7 @@ import copy
 # lib_path = 'E:\\Temp\\ms5\\'
 # lib_path = 'C:\\Users\\ksn\\stable-diffusion-webui\\'
 # lib_path = 'D:\\Temp\\M\\ms5\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\'
-lib_path = 'C:\\Users\\ksn\\frameworks\\ms5\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\'
+lib_path = 'C:\\Users\\ksn\\frameworks\\celery-main\\'
 
 size_image = 50
 min_subclasses = 0
@@ -30,8 +30,8 @@ list_files_sizes = []
 dict_classes_sizes = dict()
 list_classes_for_html.append('<!DOCTYPE html><html><head><meta charset="utf-8"><title></title>\
 <style>body{background-color: #13191e}div{color: #d2d2d2; font-family: Trebuchet MS; font-size: 15px}\
-a{color: #55e1e6; font-family: Trebuchet MS; font-size: 15px}span{color: #efefef}</style></head>\
-<span><i>The numbers are amount of subclasses and size of file</i></span><br><br>')
+a{color: #55e1e6; font-family: Trebuchet MS; font-size: 15px}span{color: #efefef}.red{color: #e0876a}\
+.orange{color: #f9ccac}</style></head><span><i>The numbers are amount of subclasses and size of file</i></span><br><br>')
 
 #open file and get names classes with regex
 def open_and_re(path, list_classes, list_classes_for_graph, list_classes_for_html):
@@ -159,7 +159,14 @@ dict_colors_for_sizes = dict(zip(sorted(list_files_sizes),\
 
 #added colors and counter values in html
 for i in range(len(list_classes_for_html)):
-    size_for_color = (re.findall('ue\)">\d*', list_classes_for_html[i]))
+    access_modifier = re.findall('private|protected|\s__|\s_', list_classes_for_html[i])
+    if len(access_modifier) > 0:
+        if access_modifier[0] == 'protected' or access_modifier[0] == ' _':
+            list_classes_for_html[i] = re.sub('<div>', '<div class="orange">', list_classes_for_html[i])
+        if access_modifier[0] == 'private' or access_modifier[0] == ' __':
+            list_classes_for_html[i] = re.sub('<div>', '<div class="red">', list_classes_for_html[i])
+            
+    size_for_color = re.findall('ue\)">\d*', list_classes_for_html[i])
     if len(size_for_color) > 0:
         list_classes_for_html[i] = re.sub('blue', \
                      str(dict_colors_for_sizes[int(size_for_color[0][5:])]), list_classes_for_html[i])
