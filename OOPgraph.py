@@ -11,7 +11,7 @@ import copy
 # lib_path = 'E:\\Temp\\ms5\\'
 # lib_path = 'C:\\Users\\ksn\\stable-diffusion-webui\\'
 # lib_path = 'D:\\Temp\\M\\ms5\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\'
-lib_path = 'C:\\Users\\ksn\\frameworks\\celery-main\\'
+lib_path = 'C:\\Users\\ksn\\frameworks\\laravel-10.x\\'
 
 size_image = 50
 min_subclasses = 0
@@ -159,11 +159,11 @@ dict_colors_for_sizes = dict(zip(sorted(list_files_sizes),\
 
 #added colors and counter values in html
 for i in range(len(list_classes_for_html)):
-    access_modifier = re.findall('private|protected|\s__|\s_', list_classes_for_html[i])
+    access_modifier = re.findall('private|protected|f\s__|f\s_', list_classes_for_html[i])
     if len(access_modifier) > 0:
-        if access_modifier[0] == 'protected' or access_modifier[0] == ' _':
+        if access_modifier[0] == 'protected' or access_modifier[0] == 'f _':
             list_classes_for_html[i] = re.sub('<div>', '<div class="orange">', list_classes_for_html[i])
-        if access_modifier[0] == 'private' or access_modifier[0] == ' __':
+        if access_modifier[0] == 'private' or access_modifier[0] == 'f __':
             list_classes_for_html[i] = re.sub('<div>', '<div class="red">', list_classes_for_html[i])
             
     size_for_color = re.findall('ue\)">\d*', list_classes_for_html[i])
