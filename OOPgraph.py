@@ -9,11 +9,7 @@ import copy
 import sys
 
 
-# lib_path = '/home/ksn38/frameworks/laravel-10.x/src/Illuminate/'
-# lib_path = 'E:\\Temp\\ms5\\'
-# lib_path = 'C:\\Users\\ksn\\stable-diffusion-webui\\'
-# lib_path = 'D:\\Temp\\M\\ms5\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\'
-lib_path = 'C:\\Users\\ksn\\frameworks\\laravel-10.x\\'
+lib_path = '/home/ksn38/frameworks/laravel-10.x/'
 # lib_path = 'C:\\Users\\ksn\\frameworks\\spring-boot-main\\'
 
 size_image = 50
@@ -42,12 +38,13 @@ class Parser:
         
     def open_and_reg(self, path):
         with open(path, 'r', encoding='utf-8') as file:
+            file_readed = None
             try:
                 file_readed = file.read()
                 classes = re.findall('^class\s.*|^interface.*|^abstract.*|^trait.*', file_readed, re.MULTILINE)
             except UnicodeDecodeError:
                 classes = []
-
+            
             for i in classes:
                 i = i.replace('\\', '.')
                 #class is taken for graph and counter at least 3 characters in name 
@@ -178,6 +175,9 @@ for i in p.list_classes_for_graph:
         G.add_edge(i[0], i[1])
 
 df = pd.DataFrame(list(G.degree), columns=['node','degree']).set_index('node')
+if df.empty:
+    print("Graph is empty")
+    sys.exit()
 df_size = pd.DataFrame({'node': list(p.dict_classes_sizes.keys()), 'size': list(p.dict_classes_sizes.values())})
 df = pd.merge(df, df_size, how='left', on='node')
 df['color'] = df['size'].rank()
