@@ -100,8 +100,9 @@ class Replacer_for_html:
             for i in range(len(list_file)):
                 if list_file[i] == c:
                     try:
-                        while list_file[i+1] == '' or list_file[i+1][0] == ' ' or list_file[i+1][0] == '{':
+                        while list_file[i+1] == '' or list_file[i+1][0] == ' ' or list_file[i+1][0] == '{' or list_file[i+1][0] == '\t':
                             i += 1
+                            list_file[i] = list_file[i].replace('\t', '    ')
                             if re.findall('^\s{1,}def\s.*|^\s{1,}public.*|^\s{1,}private.*|^\s{1,}protected.*|^\s{1,4}\w+\(.*', list_file[i]):
                                 list_classes_for_html.append(f'<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{list_file[i]}</div>')
                     except IndexError:
@@ -136,6 +137,7 @@ class Replacer_for_html_java:
                         pass
         return list_classes_for_html
 
+print("Parsing data")
 #run in multiple directories
 p = Parser()
 
@@ -185,6 +187,7 @@ vmin = df['color'].min()
 vmax = df['color'].max()
 cmap = plt.cm.rainbow
 
+print("Plotting graph")
 pos = nx.spring_layout(G, k=0.2, seed=38)
 nx.draw_networkx(DG, pos=pos, arrows=True, arrowsize=20, node_size=df.degree*100, node_color=df['color'],\
                  edge_color='grey', font_color='white', cmap=cmap, vmin=vmin, vmax=vmax)

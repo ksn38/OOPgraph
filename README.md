@@ -1,8 +1,10 @@
-Script shows Python/PHP/Java/TypeScript OOP-classes/interfaces from any library in html file and builds inheritance graph for them. Node color is related to the size of file.  Node size is related to the number of subclasses. The number in parentheses is the minimal number of subclasses. 
+Script shows Python/PHP/Java/TypeScript OOP-classes/interfaces from any framework in html file and builds inheritance graph for them.  
  
 #### USAGE:
     python OOPgraph.py <path to library>
-
+ 
+Node color is related to the size of file.  Node size is related to the number of subclasses. The number in parentheses is the minimal number of subclasses:  
+ 
 django (> 2):
 ![django](https://github.com/ksn38/graph_for_classes/blob/main/gallery/Django.jpg)
  
