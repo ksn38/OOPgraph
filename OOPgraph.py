@@ -10,6 +10,7 @@ import sys
 
 
 lib_path = '/home/ksn38/frameworks/laravel-10.x/'
+#lib_path = '/home/ksn38/bitrix_docker/bitrix/bitrix/modules/main/'
 # lib_path = 'C:\\Users\\ksn\\frameworks\\spring-boot-main\\'
 
 size_image = 50
@@ -103,7 +104,7 @@ class Replacer_for_html:
                         while list_file[i+1] == '' or list_file[i+1][0] == ' ' or list_file[i+1][0] == '{' or list_file[i+1][0] == '\t':
                             i += 1
                             list_file[i] = list_file[i].replace('\t', '    ')
-                            if re.findall('^\s{1,}def\s.*|^\s{1,}public.*|^\s{1,}private.*|^\s{1,}protected.*|^\s{1,4}\w+\(.*', list_file[i]):
+                            if re.findall('^\s{1,}def\s.*|^\s{1,}(public|private|protected|final|function|abstract).*|^\s{1,4}\w+\(.*', list_file[i]):
                                 list_classes_for_html.append(f'<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{list_file[i]}</div>')
                     except IndexError:
                         pass
@@ -128,7 +129,7 @@ class Replacer_for_html_java:
                     try:
                         while list_file[i+1] == '' or list_file[i+1][0] == '\t' or list_file[i+1][0] == '{':
                             i += 1
-                            if re.findall('^\t{1,}public.*|^\t{1,}private.*|^\t{1,}protected.*', list_file[i]):
+                            if re.findall('^\t{1,}(public|private|protected).*', list_file[i]):
                                 string = list_file[i]
                                 string = string.replace('<', '&lt')
                                 string = string.replace('>', '&gt')
