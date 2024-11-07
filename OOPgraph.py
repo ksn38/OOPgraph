@@ -9,22 +9,17 @@ import copy
 import sys
 
 
-lib_path = '/home/ksn38/frameworks/laravel-10.x/'
-#lib_path = '/home/ksn38/bitrix_docker/bitrix/bitrix/modules/main/'
-# lib_path = 'C:\\Users\\ksn\\frameworks\\spring-boot-main\\'
+lib_path = '../frameworks/laravel-10.x/'
 
 size_image = 50
 min_subclasses = 0
 max_subclasses = None
 
-if os.name == "posix":
-    if len(sys.argv) > 1:
-        lib_path = sys.argv[1] + '/'
-    lib = lib_path.split('/')[-2]
-elif os.name == "nt":
-    if len(sys.argv) > 1:
-        lib_path = sys.argv[1] + '\\'
-    lib = lib_path.split('\\')[-2]
+if len(sys.argv) > 1:
+    lib_path = sys.argv[1] + '/'
+lib = lib_path.split('/')[-2]
+if lib == 'src':
+    lib = lib_path.split('/')[-3]
 
 class Parser:
     def __init__(self):
