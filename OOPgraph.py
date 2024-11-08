@@ -122,9 +122,9 @@ class Replacer_for_html_java:
             for i in range(len(list_file)):
                 if list_file[i] == c:
                     try:
-                        while list_file[i+1] == '' or list_file[i+1][0] == '\t' or list_file[i+1][0] == '{':
+                        while list_file[i+1] == '' or list_file[i+1][0] == '\t' or list_file[i+1][0] == '{' or list_file[i+1][0] == ' ':
                             i += 1
-                            if re.findall('^\t{1,}(public|private|protected).*', list_file[i]):
+                            if re.findall('^(\t|\s)+(public|private|protected).*', list_file[i]):
                                 string = list_file[i]
                                 string = string.replace('<', '&lt')
                                 string = string.replace('>', '&gt')
