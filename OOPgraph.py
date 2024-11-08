@@ -17,9 +17,9 @@ max_subclasses = None
 
 if len(sys.argv) > 1:
     lib_path = sys.argv[1] + '/'
-lib = lib_path.split('/')[-2]
+lib = re.findall('[^(\\\|/)]+', lib_path)[-1]
 if lib == 'src':
-    lib = lib_path.split('/')[-3]
+    lib = re.findall('[^(\\\|/)]+', lib_path)[-2]
 
 class Parser:
     def __init__(self):
