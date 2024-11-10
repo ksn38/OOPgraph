@@ -4,3 +4,4 @@
 /.mypy_cache
 /ipynb/.ipynb_checkpoints
 /ipynb
+/test
