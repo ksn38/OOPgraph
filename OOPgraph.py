@@ -92,7 +92,7 @@ class Parser:
                             pass
             
     #run previous function on multiple files
-    def printer(self, tuple_from_oswalk):
+    def print(self, tuple_from_oswalk):
         files = tuple_from_oswalk[2]
         for f in files:
             if tuple_from_oswalk[0][-1] != '/' and f[-2:] in {'hp', 'js', 'ts', 'py', 'va', 'ss'}:
@@ -101,9 +101,9 @@ class Parser:
                 self.open_and_reg(tuple_from_oswalk[0] + f)
     
     #run in multiple directories
-    def runner(self):
+    def run(self):
         for i in os.walk(self.lib_path):
-            self.printer(i)
+            self.print(i)
                 
 
 class Post_processing:
@@ -117,7 +117,7 @@ class Post_processing:
         self.dict_colors_for_sizes = None
         self.class_counter_gt_1_origin = None
     
-    def counter(self):
+    def count(self):
         class_counter = Counter(self.list_classes)
 
         for i in class_counter.items():
@@ -148,7 +148,7 @@ class Post_processing:
                                          np.linspace(0, 255, len(self.list_files_sizes))))
 
     #added colors and counter values in html
-    def painter(self):
+    def paint(self):
         for i in range(len(self.list_classes_for_html)):
             access_modifier = re.findall('private|protected|f\s__|f\s_', self.list_classes_for_html[i])
             if len(access_modifier) > 0:
@@ -174,8 +174,8 @@ class Post_processing:
                         f' = {self.class_counter_gt_1_origin[j] - 1}</div>'
 
     def save(self):
-        self.counter()
-        self.painter()
+        self.count()
+        self.paint()
         html_file = open(self.lib + '.html', 'w', encoding="utf-8")
         html_file.write('\n'.join(map(str, self.list_classes_for_html)))
         html_file.close()
@@ -184,7 +184,7 @@ if __name__ == '__main__':
     print("Parsing data")
     
     p = Parser(lib_path)
-    p.runner()
+    p.run()
 
     pp = Post_processing(lib, p.list_classes, p.list_files_sizes, p.list_classes_for_html)
     pp.save()
