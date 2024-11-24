@@ -3,7 +3,7 @@ import networkx as nx
 import pandas as pd
 
 
-def graph(lib, list_classes_for_graph, dict_classes_sizes, class_counter_lt_gt, size_image=50, min_subclasses=0, max_subclasses=None):
+def graph(lib, list_classes_for_graph, dict_classes_sizes, class_counter_lt_gt, max_subclasses, min_subclasses, size_image=50):
     fig, ax = plt.subplots()
     fig.set_size_inches(size_image, size_image)
     fig.patch.set_visible(False)

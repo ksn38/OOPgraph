@@ -1,7 +1,7 @@
 *.html
 *.png
+*.ipynb
 /__pycache__
 /.mypy_cache
-/ipynb/.ipynb_checkpoints
-/ipynb
+/.ipynb_checkpoints
 /test

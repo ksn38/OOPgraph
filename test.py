@@ -5,11 +5,13 @@ from OOPgraph import Post_processing
 import os
 import tkinter
 
+min_subclasses = 0
+max_subclasses = None
 
 p = Parser(tkinter.__file__[:-11])
 p.run()
 
-pp = Post_processing('tkinter', p.list_classes, p.list_files_sizes, p.list_classes_for_html)
+pp = Post_processing('tkinter', p.list_classes, p.list_files_sizes, p.list_classes_for_html, max_subclasses, min_subclasses)
 pp.save()
 
 try:

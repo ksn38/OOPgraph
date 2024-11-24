@@ -8,6 +8,7 @@ import sys
 import pickle 
 from graph_builder import graph
 
+
 lib_path = '../frameworks/laravel-10.x/'
 
 size_image = 50
@@ -107,11 +108,13 @@ class Parser:
                 
 
 class Post_processing:
-    def __init__(self, lib, list_classes, list_files_sizes, list_classes_for_html):
+    def __init__(self, lib, list_classes, list_files_sizes, list_classes_for_html, max_subclasses, min_subclasses):
         self.lib = lib
-        self.list_classes_for_html = list_classes_for_html
-        self.list_files_sizes = list_files_sizes
         self.list_classes = list_classes
+        self.list_files_sizes = list_files_sizes
+        self.list_classes_for_html = list_classes_for_html
+        self.max_subclasses = max_subclasses
+        self.min_subclasses = min_subclasses
         self.class_counter_gt_1 = {}
         self.class_counter_lt_gt = set()
         self.dict_colors_for_sizes = None
@@ -123,11 +126,11 @@ class Post_processing:
         for i in class_counter.items():
             if i[1] > 1:
                 self.class_counter_gt_1[i[0]] = i[1]
-            if max_subclasses == None:
-                if i[1] < min_subclasses + 1:
+            if self.max_subclasses == None:
+                if i[1] < self.min_subclasses + 1:
                     self.class_counter_lt_gt.add(i[0])
-            if max_subclasses != None:
-                if max_subclasses + 1 < i[1] or i[1] < min_subclasses + 1:
+            if self.max_subclasses != None:
+                if self.max_subclasses + 1 < i[1] or i[1] < self.min_subclasses + 1:
                     self.class_counter_lt_gt.add(i[0])          
             
         self.class_counter_gt_1_origin = self.class_counter_gt_1.copy()
@@ -186,9 +189,9 @@ if __name__ == '__main__':
     p = Parser(lib_path)
     p.run()
 
-    pp = Post_processing(lib, p.list_classes, p.list_files_sizes, p.list_classes_for_html)
+    pp = Post_processing(lib, p.list_classes, p.list_files_sizes, p.list_classes_for_html, max_subclasses, min_subclasses)
     pp.save()
 
     print("Plotting graph")
     #create graph
-    graph(lib, p.list_classes_for_graph, p.dict_classes_sizes, pp.class_counter_lt_gt, size_image, min_subclasses, max_subclasses)
+    graph(lib, p.list_classes_for_graph, p.dict_classes_sizes, pp.class_counter_lt_gt, max_subclasses, min_subclasses, size_image)
