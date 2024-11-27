@@ -9,7 +9,7 @@ import pickle
 from graph_builder import graph
 
 
-lib_path = '../frameworks/laravel-10.x/'
+lib_path = '../frameworks/laravel-11.x/'
 
 size_image = 50
 min_subclasses = 0
@@ -17,9 +17,9 @@ max_subclasses = None
 
 if len(sys.argv) > 1:
     lib_path = sys.argv[1] + '/'
-lib = re.findall('[^(\\\|/)]+', lib_path)[-1]
+lib = re.findall(r'[^(\\\|/)]+', lib_path)[-1]
 if lib == 'src':
-    lib = re.findall('[^(\\\|/)]+', lib_path)[-2]
+    lib = re.findall(r'[^(\\\|/)]+', lib_path)[-2]
 
 class Parser:
     def __init__(self, lib_path):
@@ -38,14 +38,14 @@ class Parser:
             file_readed = None
             try:
                 file_readed = file.read()
-                classes = re.findall('^class\s.*|^interface.*|^abstract.*|^trait.*', file_readed, re.MULTILINE)
+                classes = re.findall(r'^class\s.*|^interface.*|^abstract.*|^trait.*', file_readed, re.MULTILINE)
             except UnicodeDecodeError:
                 classes = []
             
             for i in classes:
                 i = i.replace('\\', '.')
                 #class is taken for graph and counter at least 3 characters in name 
-                list_1_or_more_classes = re.findall('\w{3,}\.*', i)
+                list_1_or_more_classes = re.findall(r'\w{3,}\.*', i)
                 list_1_or_more_classes_origin = list_1_or_more_classes.copy()
                 for k in list_1_or_more_classes_origin:
                     if k in {'class', 'extends', 'interface', 'abstract', 'implements', 'trait'} \
@@ -79,7 +79,7 @@ class Parser:
                             while list_file[i+1] == '' or list_file[i+1][0] in ('\t', '{', ' '):
                                 if path[-2:] == 'va' or path[-2:] == 'ss':
                                     i += 1
-                                    if re.findall('^(\t|\s)+(public|private|protected).*', list_file[i]):
+                                    if re.findall(r'^(\t|\s)+(public|private|protected).*', list_file[i]):
                                         string = list_file[i]
                                         string = string.replace('<', '&lt')
                                         string = string.replace('>', '&gt')
@@ -87,7 +87,7 @@ class Parser:
                                 else:
                                     i += 1
                                     list_file[i] = list_file[i].replace('\t', '    ')
-                                    if re.findall('^\s{1,}def\s.*|^\s{1,}(public|private|protected|final|function|abstract).*|^\s{1,4}\w+\(.*', list_file[i]):
+                                    if re.findall(r'^\s{1,}def\s.*|^\s{1,}(public|private|protected|final|function|abstract).*|^\s{1,4}\w+\(.*', list_file[i]):
                                         self.list_classes_for_html.append(f'<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{list_file[i]}</div>')
                         except IndexError:
                             pass
@@ -153,19 +153,19 @@ class Post_processing:
     #added colors and counter values in html
     def paint(self):
         for i in range(len(self.list_classes_for_html)):
-            access_modifier = re.findall('private|protected|f\s__|f\s_', self.list_classes_for_html[i])
+            access_modifier = re.findall(r'private|protected|f\s__|f\s_', self.list_classes_for_html[i])
             if len(access_modifier) > 0:
                 if access_modifier[0] == 'protected' or access_modifier[0] == 'f _':
                     self.list_classes_for_html[i] = re.sub('<div>', '<div class="orange">', self.list_classes_for_html[i])
                 if access_modifier[0] == 'private' or access_modifier[0] == 'f __':
                     self.list_classes_for_html[i] = re.sub('<div>', '<div class="red">', self.list_classes_for_html[i])
                     
-            size_for_color = re.findall('ue\)">\d*', self.list_classes_for_html[i])
+            size_for_color = re.findall(r'ue\)">\d*', self.list_classes_for_html[i])
             if len(size_for_color) > 0:
                 self.list_classes_for_html[i] = re.sub('blue', \
                              str(self.dict_colors_for_sizes[int(size_for_color[0][5:])]), self.list_classes_for_html[i])
             try:
-                c = re.findall('class\s\w+|interface\s\w+', self.list_classes_for_html[i])
+                c = re.findall(r'class\s\w+|interface\s\w+', self.list_classes_for_html[i])
             except:
                 c = []
             if len(c) != 0:

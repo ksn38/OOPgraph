@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 import pandas as pd
+import sys
 
 
 def graph(lib, list_classes_for_graph, dict_classes_sizes, class_counter_lt_gt, max_subclasses, min_subclasses, size_image=50):
