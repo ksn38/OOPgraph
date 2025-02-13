@@ -7,7 +7,7 @@ Node color is related to the size of file.  Node size is related to the number o
  
 pandas core(> 1):
 ![pandas](https://github.com/ksn38/graph_for_classes/blob/main/gallery/pandas.jpg) 
-https://www.youtube.com/watch?v=PD7D-0kMX9k 
+https://www.youtube.com/watch?v=9mvCWagbnlk 
  
 airflow (> 1):
 ![airflow](https://github.com/ksn38/graph_for_classes/blob/main/gallery/airflow.jpg) 
